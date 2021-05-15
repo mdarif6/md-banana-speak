@@ -1,32 +1,36 @@
-// // // console.log("Hello script is working from Diff file")
+// //input
+// var username= prompt("Give me username")
 
-// // //input
-// // var username= prompt("Give me your username")
+// //processing
+// var welcomeMessage ="this script works!! " + username
 
-// // //processing
-// // var welcomeMessage="this script works!! " + username
+// //output
+// alert(welcomeMessage)
 
-// // //output
-// // alert(welcomeMessage)
+var btnTranslate = document.querySelector("#btn-translate")
+var txtInput = document.querySelector("#txt-input")
+var outputDiv = document.querySelector("#output")
 
-// var btnTranslate= document.querySelector("#btn-translate")
-// // console.log(btnTranslate)
+// var serverURL = "https://lessonfourapi.tanaypratap.repl.co/translate/yoda.json"
 
-// btnTranslate.addEventListener("click", function clickEventHander(){
-//     console.log("clicked!")
-// })
+var serverURL = "https://api.funtranslations.com/translate/minion.json"
 
-var btnTranslate= document.querySelector("#btn-translate")  
-var textInput= document.querySelector("#text-input")
-console.log(textInput)
-
-function clickHandler(){
-    console.log("clicked!")
-    console.log("input", textInput.value)
+function getTranslationURL(text) {
+    return serverURL + "?" + "text=" + text
 }
-btnTranslate.addEventListener("click", clickHandler)
 
-1. document.querySelector("textarea")
-2. .btn-primary
-3. #input-btn
-4."input[name='translator']"
+
+function clickHandler() {
+//  outputDiv.innerText = "asdfdsfdf " + txtInput.value
+var inputText = txtInput.value //taking input 
+
+//calling server for processing
+fetch(getTranslationURL(inputText))
+.then(response => response.json())
+.then(json => {
+    var translatedText = json.contents.translated
+    outputDiv.innerText = translatedText
+})
+}
+
+btnTranslate.addEventListener("click", clickHandler) 
